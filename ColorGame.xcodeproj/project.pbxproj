@@ -15,7 +15,7 @@
 		9F87E84223452C670090F2AC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9F87E84123452C670090F2AC /* Assets.xcassets */; };
 		9F87E84523452C670090F2AC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9F87E84323452C670090F2AC /* LaunchScreen.storyboard */; };
 		9FC867D22349B49A0059D01E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9FC867D12349B49A0059D01E /* GoogleService-Info.plist */; };
-		9FF370B723468C3300C6CC3D /* cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FF370B623468C3300C6CC3D /* cell.swift */; };
+		9FC867D4234A69FB0059D01E /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC867D3234A69FB0059D01E /* MenuViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,7 +31,7 @@
 		9F87E84423452C670090F2AC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9F87E84623452C670090F2AC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9FC867D12349B49A0059D01E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		9FF370B623468C3300C6CC3D /* cell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = cell.swift; sourceTree = "<group>"; };
+		9FC867D3234A69FB0059D01E /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,7 +93,7 @@
 				9F87E84123452C670090F2AC /* Assets.xcassets */,
 				9F87E84323452C670090F2AC /* LaunchScreen.storyboard */,
 				9F87E84623452C670090F2AC /* Info.plist */,
-				9FF370B623468C3300C6CC3D /* cell.swift */,
+				9FC867D3234A69FB0059D01E /* MenuViewController.swift */,
 			);
 			path = ColorGame;
 			sourceTree = "<group>";
@@ -222,7 +222,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9F87E83D23452C660090F2AC /* ViewController.swift in Sources */,
-				9FF370B723468C3300C6CC3D /* cell.swift in Sources */,
+				9FC867D4234A69FB0059D01E /* MenuViewController.swift in Sources */,
 				9F87E83923452C660090F2AC /* AppDelegate.swift in Sources */,
 				9F87E83B23452C660090F2AC /* SceneDelegate.swift in Sources */,
 			);

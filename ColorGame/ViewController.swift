@@ -8,7 +8,7 @@
 
 import UIKit
 import GoogleMobileAds
-import Firebase
+import FirebaseFirestore
 
 class ViewController: UIViewController {
     
@@ -17,6 +17,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var StartGame: UIButton!
     
     var userID = ""
+    var scoreNum = 0
     
     @IBOutlet weak var button1: UIButton!
     @IBOutlet weak var button2: UIButton!
@@ -33,33 +34,61 @@ class ViewController: UIViewController {
     
     // MARK: - viewDidLoad()
     override func viewDidLoad() {
+        super.viewDidLoad()
+    }
+    
+    func getName() {
         let defaults = UserDefaults.standard
-        if defaults.string(forKey: "uid") == nil {
-            let getName = UIAlertController(title: "Give us a name!", message: "We'll save your score so you can brag a lil ;)", preferredStyle: .alert)
-            getName.addTextField { (text) in print("Goofy") }
-            let submit = UIAlertAction(title: "Submit", style: .default) { (alert) in
-                var answer = getName.textFields![0]
-                if answer == nil {
-                    print("shit is empty homie")
-                    //HANDLE THIS LATER PAPI
-                } else {
-                    let db = Firestore.firestore()
-                    let newUser = db.collection("users")
-                    var newDoc: DocumentReference? = nil
-                    newDoc = newUser.addDocument(data: ["name" : answer, "highScore": 0]) { (err) in
-                        if let err = err {
-                            print("Error: \(err)")
-                        } else {
-                            defaults.set("UID", forKey: newDoc!.documentID)
-                        }
+        mainTile.alpha = 0
+        button1.alpha = 0
+        button2.alpha = 0
+        button3.alpha = 0
+        button4.alpha = 0
+        button5.alpha = 0
+        button6.alpha = 0
+        button7.alpha = 0
+        button8.alpha = 0
+        button9.alpha = 0
+        self.StartGame.alpha = 0
+        let getName = UIAlertController(title: "Give us a name!", message: "We'll save your score so you can brag a lil ;)", preferredStyle: .alert)
+        getName.addTextField()
+        let submit = UIAlertAction(title: "Submit", style: .default) { (alert) in
+            var answer = getName.textFields![0]
+            if answer == nil {
+                print("shit is empty homie")
+                //HANDLE THIS LATER PAPI
+            } else {
+                let db = Firestore.firestore()
+                let newUser = db.collection("users")
+                var newDoc: DocumentReference? = nil
+                newDoc = newUser.addDocument(data: ["name" : answer.text, "highScore": 0]) { (err) in
+                    if let err = err {
+                        print("Error: \(err)")
+                    } else {
+                        defaults.set("uid", forKey: newDoc!.documentID)
+                        self.userID = newDoc!.documentID
+                        self.formatView()
                     }
                 }
             }
-        } else {
-            //fetch uid
         }
-        super.viewDidLoad()
-        
+        getName.addAction(submit)
+        self.present(getName, animated: true)
+    }
+    
+    func formatView() {
+        mainTile.alpha = 0
+        button1.alpha = 0
+        button2.alpha = 0
+        button3.alpha = 0
+        button4.alpha = 0
+        button5.alpha = 0
+        button6.alpha = 0
+        button7.alpha = 0
+        button8.alpha = 0
+        button9.alpha = 0
+        self.StartGame.alpha = 1
+
         //ad stuff
         bannerView = GADBannerView(adSize: kGADAdSizeBanner)
         addBannerViewToView(bannerView)
@@ -67,7 +96,6 @@ class ViewController: UIViewController {
         bannerView.rootViewController = self
         bannerView.load(GADRequest())
     }
-    
     func addBannerViewToView(_ bannerView: GADBannerView) {
      bannerView.translatesAutoresizingMaskIntoConstraints = false
      view.addSubview(bannerView)
@@ -89,53 +117,66 @@ class ViewController: UIViewController {
        ])
     }
     
+    @objc func saveData(){
+        
+    }
     // MARK: - Start
     func start() {
         var halt = false
-        let timer = Timer(timeInterval: 30, repeats: false) { _ in
-            
-        }
-        timer.fire()
-        toggleColors()
-        toggleMainColor()
-        while halt == false {
-            mainTile.alpha = 1
-            button1.alpha = 1
-            button2.alpha = 1
-            button3.alpha = 1
-            button4.alpha = 1
-            button5.alpha = 1
-            button6.alpha = 1
-            button7.alpha = 1
-            button8.alpha = 1
-            button9.alpha = 1
-            if halt == true{
-                var finalScore = score.text as! Int
-                let db = Firestore.firestore()
-                let userScoresRef = db.collection("users").document(userID)
-                userScoresRef.getDocument { (snap, err) in
-                    if let err = err {
-                        print("Error: \(err)")
-                    } else {
-                        //if this score was higher then the users best score, then they get a UIAlert
-                        var userHighScore = snap?.data()!["highScore"] as! Int
-                        if finalScore > userHighScore {
-                            let highScoreAlert = UIAlertController(title: "New High Score", message: "USER NEW SCORE", preferredStyle: .alert)
-                            let close = UIAlertAction(title: "close", style: .default) { (aler) in
-                                print("we out")
-                            }
-                            highScoreAlert.addAction(close)
-                            self.present(highScoreAlert, animated: true)
-                            userScoresRef.updateData(["highScore" : finalScore])
+        let timer = Timer.scheduledTimer(withTimeInterval: 30, repeats: false) { timer in
+            self.mainTile.alpha = 0
+            self.button1.alpha = 0
+            self.button2.alpha = 0
+            self.button3.alpha = 0
+            self.button4.alpha = 0
+            self.button5.alpha = 0
+            self.button6.alpha = 0
+            self.button7.alpha = 0
+            self.button8.alpha = 0
+            self.button9.alpha = 0
+            self.StartGame.alpha = 0
+            var finalScore = self.score.text as! String
+            self.scoreNum = Int(finalScore)!
+            self.score.text = "0"
+            let db = Firestore.firestore()
+            let ref = db.collection("users").document(self.userID)
+            ref.getDocument { (snap, err) in
+                if let err = err {
+                    print("Error: \(err)")
+                } else {
+                    var highscore = snap?.data()!["highScore"] as! String
+                    var currentScore = finalScore
+                    
+                    if currentScore > highscore {
+                        let highAlert = UIAlertController(title: "New High Score", message: finalScore, preferredStyle: .alert)
+                        let close = UIAlertAction(title: "close", style: .default) { (alert) in
+                            print("closed")
                         }
+                        highAlert.addAction(close)
+                        self.present(highAlert, animated: true)
+                        ref.updateData(["highScore" : finalScore])
                     }
                 }
             }
         }
+        toggleColors()
+        toggleMainColor()
     }
     
     // MARK: - Button Functions
     @IBAction func startGameTouch(_ sender: Any) {
+        mainTile.alpha = 1
+        button1.alpha = 1
+        button2.alpha = 1
+        button3.alpha = 1
+        button4.alpha = 1
+        button5.alpha = 1
+        button6.alpha = 1
+        button7.alpha = 1
+        button8.alpha = 1
+        button9.alpha = 1
+        self.StartGame.alpha = 0
+        start()
     }
     
     @IBAction func button1Touch(_ sender: Any) {
@@ -144,40 +185,115 @@ class ViewController: UIViewController {
         if color == rightColor {
             toggleMainColor()
             toggleColors()
-            self.viewDidLoad()
+            scoreNum += 1
+            score.text = String(scoreNum)
+        } else {
+            print("WRONG")
         }
     }
     
     @IBAction func button2Touch(_ sender: Any) {
-    
+        var color = button2.backgroundColor
+        var rightColor = mainTile.backgroundColor
+        if color == rightColor {
+            toggleMainColor()
+            toggleColors()
+            scoreNum += 1
+            score.text = String(scoreNum)
+        } else {
+            print("WRONG")
+        }
     }
     
     @IBAction func button3Touch(_ sender: Any) {
-    
+        var color = button3.backgroundColor
+        var rightColor = mainTile.backgroundColor
+        if color == rightColor {
+            toggleMainColor()
+            toggleColors()
+            scoreNum += 1
+            score.text = String(scoreNum)
+        } else {
+            print("WRONG")
+        }
     }
     
     @IBAction func button4Touch(_ sender: Any) {
-    
+        var color = button4.backgroundColor
+        var rightColor = mainTile.backgroundColor
+        if color == rightColor {
+            toggleMainColor()
+            toggleColors()
+            scoreNum += 1
+            score.text = String(scoreNum)
+        } else {
+            print("WRONG")
+        }
     }
     
     @IBAction func button5Touch(_ sender: Any) {
-    
+        var color = button5.backgroundColor
+        var rightColor = mainTile.backgroundColor
+        if color == rightColor {
+            toggleMainColor()
+            toggleColors()
+            scoreNum += 1
+            score.text = String(scoreNum)
+        } else {
+            print("WRONG")
+        }
     }
     
     @IBAction func button6Touch(_ sender: Any) {
-    
+        var color = button6.backgroundColor
+        var rightColor = mainTile.backgroundColor
+        if color == rightColor {
+            toggleMainColor()
+            toggleColors()
+            scoreNum += 1
+            score.text = String(scoreNum)
+        } else {
+            print("WRONG")
+        }
     }
     
     @IBAction func button7Touch(_ sender: Any) {
-    
+        var color = button7.backgroundColor
+        var rightColor = mainTile.backgroundColor
+        if color == rightColor {
+            toggleMainColor()
+            toggleColors()
+            scoreNum += 1
+            score.text = String(scoreNum)
+        } else {
+            print("WRONG")
+        }
     }
     
     @IBAction func button8Touch(_ sender: Any) {
-    
+        var color = button8.backgroundColor
+        var rightColor = mainTile.backgroundColor
+        if color == rightColor {
+            toggleMainColor()
+            toggleColors()
+            scoreNum += 1
+            score.text = String(scoreNum)
+        } else {
+            print("WRONG")
+        }
     }
     
     @IBAction func button9Touch(_ sender: Any) {
-    
+        var color = button9.backgroundColor
+        var rightColor = mainTile.backgroundColor
+        if color == rightColor {
+            toggleMainColor()
+            toggleColors()
+            scoreNum += 1
+            score.text = String(scoreNum)
+        } else {
+            print("WRONG")
+        }
     }
     
     

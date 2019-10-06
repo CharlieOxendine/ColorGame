@@ -10,7 +10,7 @@ import UIKit
 import GoogleMobileAds
 import FirebaseFirestore
 
-class ViewController: UIViewController {
+class gameViewController: UIViewController {
     
     @IBOutlet weak var mainTile: UIButton!
     @IBOutlet weak var score: UILabel!
@@ -34,46 +34,13 @@ class ViewController: UIViewController {
     
     // MARK: - viewDidLoad()
     override func viewDidLoad() {
+        getName()
         super.viewDidLoad()
     }
     
     func getName() {
         let defaults = UserDefaults.standard
-        mainTile.alpha = 0
-        button1.alpha = 0
-        button2.alpha = 0
-        button3.alpha = 0
-        button4.alpha = 0
-        button5.alpha = 0
-        button6.alpha = 0
-        button7.alpha = 0
-        button8.alpha = 0
-        button9.alpha = 0
-        self.StartGame.alpha = 0
-        let getName = UIAlertController(title: "Give us a name!", message: "We'll save your score so you can brag a lil ;)", preferredStyle: .alert)
-        getName.addTextField()
-        let submit = UIAlertAction(title: "Submit", style: .default) { (alert) in
-            var answer = getName.textFields![0]
-            if answer == nil {
-                print("shit is empty homie")
-                //HANDLE THIS LATER PAPI
-            } else {
-                let db = Firestore.firestore()
-                let newUser = db.collection("users")
-                var newDoc: DocumentReference? = nil
-                newDoc = newUser.addDocument(data: ["name" : answer.text, "highScore": 0]) { (err) in
-                    if let err = err {
-                        print("Error: \(err)")
-                    } else {
-                        defaults.set("uid", forKey: newDoc!.documentID)
-                        self.userID = newDoc!.documentID
-                        self.formatView()
-                    }
-                }
-            }
-        }
-        getName.addAction(submit)
-        self.present(getName, animated: true)
+        self.userID = defaults.string(forKey: "uid")!
     }
     
     func formatView() {
@@ -144,17 +111,62 @@ class ViewController: UIViewController {
                 if let err = err {
                     print("Error: \(err)")
                 } else {
-                    var highscore = snap?.data()!["highScore"] as! String
-                    var currentScore = finalScore
+                    var highscoreString = snap?.data()!["highScore"] as! String
+                    var highscore = Int(highscoreString)
+                    var currentScore = Int(finalScore)
                     
-                    if currentScore > highscore {
+                    if currentScore! > highscore! {
                         let highAlert = UIAlertController(title: "New High Score", message: finalScore, preferredStyle: .alert)
                         let close = UIAlertAction(title: "close", style: .default) { (alert) in
                             print("closed")
+                            self.mainTile.alpha = 0
+                            self.button1.alpha = 0
+                            self.button2.alpha = 0
+                            self.button3.alpha = 0
+                            self.button4.alpha = 0
+                            self.button5.alpha = 0
+                            self.button6.alpha = 0
+                            self.button7.alpha = 0
+                            self.button8.alpha = 0
+                            self.button9.alpha = 0
+                            self.StartGame.alpha = 1
                         }
                         highAlert.addAction(close)
                         self.present(highAlert, animated: true)
                         ref.updateData(["highScore" : finalScore])
+                        self.scoreNum = 0
+                    } else if  currentScore! == highscore! {
+                        let almostAlert = UIAlertController(title: "New High Score", message: finalScore, preferredStyle: .alert)
+                        let close = UIAlertAction(title: "close", style: .default) { (alert) in
+                            print("closed")
+                            self.mainTile.alpha = 0
+                            self.button1.alpha = 0
+                            self.button2.alpha = 0
+                            self.button3.alpha = 0
+                            self.button4.alpha = 0
+                            self.button5.alpha = 0
+                            self.button6.alpha = 0
+                            self.button7.alpha = 0
+                            self.button8.alpha = 0
+                            self.button9.alpha = 0
+                            self.StartGame.alpha = 1
+                        }
+                        almostAlert.addAction(close)
+                        self.present(almostAlert, animated: true)
+                        ref.updateData(["highScore" : finalScore])
+                        self.scoreNum = 0
+                    } else if currentScore! < highscore! {
+                        self.mainTile.alpha = 0
+                        self.button1.alpha = 0
+                        self.button2.alpha = 0
+                        self.button3.alpha = 0
+                        self.button4.alpha = 0
+                        self.button5.alpha = 0
+                        self.button6.alpha = 0
+                        self.button7.alpha = 0
+                        self.button8.alpha = 0
+                        self.button9.alpha = 0
+                        self.StartGame.alpha = 1
                     }
                 }
             }
@@ -316,6 +328,7 @@ class ViewController: UIViewController {
         let randomColor = colors.randomElement()
         self.mainTile.backgroundColor = randomColor
     }
+
 }
 
 

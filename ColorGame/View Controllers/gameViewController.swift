@@ -12,6 +12,7 @@ import FirebaseFirestore
 
 class gameViewController: UIViewController {
     
+    @IBOutlet weak var highScoreLabel: UILabel!
     @IBOutlet weak var mainTile: UIButton!
     @IBOutlet weak var score: UILabel!
     @IBOutlet weak var StartGame: UIButton!
@@ -34,13 +35,29 @@ class gameViewController: UIViewController {
     
     // MARK: - viewDidLoad()
     override func viewDidLoad() {
+        overrideUserInterfaceStyle = .light
         getName()
         super.viewDidLoad()
+        formatView()
+    }
+
+    func populateHighScore() {
+        let db = Firestore.firestore()
+        let ref = db.collection("users").document(userID)
+        ref.getDocument { (snap, err) in
+            if let err = err {
+                print("Error: \(err)")
+            } else {
+                var score = snap?.data()!["highScore"] as! String
+                self.highScoreLabel.text = score
+            }
+        }
     }
     
     func getName() {
         let defaults = UserDefaults.standard
         self.userID = defaults.string(forKey: "uid")!
+        populateHighScore()
     }
     
     func formatView() {
@@ -63,6 +80,7 @@ class gameViewController: UIViewController {
         bannerView.rootViewController = self
         bannerView.load(GADRequest())
     }
+    
     func addBannerViewToView(_ bannerView: GADBannerView) {
      bannerView.translatesAutoresizingMaskIntoConstraints = false
      view.addSubview(bannerView)
@@ -83,10 +101,7 @@ class gameViewController: UIViewController {
                            constant: 0)
        ])
     }
-    
-    @objc func saveData(){
-        
-    }
+
     // MARK: - Start
     func start() {
         var halt = false
@@ -130,10 +145,13 @@ class gameViewController: UIViewController {
                             self.button8.alpha = 0
                             self.button9.alpha = 0
                             self.StartGame.alpha = 1
+                            self.self.populateHighScore()
+                            self.highScoreLabel.setNeedsDisplay()
                         }
                         highAlert.addAction(close)
                         self.present(highAlert, animated: true)
                         ref.updateData(["highScore" : finalScore])
+                        ref.updateData(["highscoreINT" : Int(finalScore)])
                         self.scoreNum = 0
                     } else if  currentScore! == highscore! {
                         let almostAlert = UIAlertController(title: "New High Score", message: finalScore, preferredStyle: .alert)
@@ -328,7 +346,20 @@ class gameViewController: UIViewController {
         let randomColor = colors.randomElement()
         self.mainTile.backgroundColor = randomColor
     }
-
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "backMenu" {
+            let menuVC = segue.destination as? MenuViewController
+            menuVC!.userUID = userID
+            menuVC!.modalPresentationStyle = .fullScreen
+            self.present(menuVC!, animated: true)
+        } else if segue.identifier == "highScoreSegue" {
+            let highScoreVC = segue.destination as? HighscoresViewController
+            highScoreVC!.modalPresentationStyle = .fullScreen
+            highScoreVC!.userID = userID
+            self.present(highScoreVC!, animated: true)
+        }
+    }
 }
 
 

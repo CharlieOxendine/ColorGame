@@ -17,6 +17,7 @@
 		9FC867D22349B49A0059D01E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9FC867D12349B49A0059D01E /* GoogleService-Info.plist */; };
 		9FC867D4234A69FB0059D01E /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC867D3234A69FB0059D01E /* MenuViewController.swift */; };
 		9FC867D7234AA05E0059D01E /* HighscoresViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC867D6234AA05E0059D01E /* HighscoresViewController.swift */; };
+		9FC867D9234AAA7E0059D01E /* scoreCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC867D8234AAA7E0059D01E /* scoreCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +35,7 @@
 		9FC867D12349B49A0059D01E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		9FC867D3234A69FB0059D01E /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
 		9FC867D6234AA05E0059D01E /* HighscoresViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighscoresViewController.swift; sourceTree = "<group>"; };
+		9FC867D8234AAA7E0059D01E /* scoreCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = scoreCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,6 +104,7 @@
 		9F87E84C23456CCC0090F2AC /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				9FC867D8234AAA7E0059D01E /* scoreCell.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -236,6 +239,7 @@
 				9FC867D7234AA05E0059D01E /* HighscoresViewController.swift in Sources */,
 				9FC867D4234A69FB0059D01E /* MenuViewController.swift in Sources */,
 				9F87E83923452C660090F2AC /* AppDelegate.swift in Sources */,
+				9FC867D9234AAA7E0059D01E /* scoreCell.swift in Sources */,
 				9F87E83B23452C660090F2AC /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

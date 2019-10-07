@@ -22,6 +22,7 @@ class MenuViewController: UIViewController {
     
     // MARK: - viewDidLoad()
     override func viewDidLoad() {
+        overrideUserInterfaceStyle = .light
         tile1.alpha = 0
         tile2.alpha = 0
         tile3.alpha = 0
@@ -85,9 +86,9 @@ class MenuViewController: UIViewController {
         let submit = UIAlertAction(title: "Submit", style: .default) { [unowned alertUser] _ in
             let text = alertUser.textFields![0].text
             let db = Firestore.firestore()
-            let ref = db.collection("users").addDocument(data: ["name" : text, "highScore" : 0])
+            let ref = db.collection("users").addDocument(data: ["name" : text, "highScore" : "0", "highscoreINT" : 0 as Int])
             let docID = ref.documentID
-            self.userUID = docID
+            self.userUID = docID 
             completion()
         }
         alertUser.addAction(submit)
@@ -100,20 +101,19 @@ class MenuViewController: UIViewController {
             //on click of play button, prompt user for name if doesnt already exist.
             let db = Firestore.firestore()
             let defaults = UserDefaults.standard
+            let newVC = segue.destination as? gameViewController
+            newVC!.modalPresentationStyle = .fullScreen
             if userUID == "" {
                 let uid = defaults.string(forKey: "uid")
                 if uid == nil {
                     promptAnswer {
                         let defaults = UserDefaults.standard
                         defaults.set(self.userUID, forKey: "uid")
-                        let newVC = segue.destination as? gameViewController
-                        newVC!.modalPresentationStyle = .fullScreen
                         self.present(newVC!, animated: true)
                     }
                 } else {
                     userUID = uid!
                     defaults.set(uid, forKey: "uid")
-                    let newVC = segue.destination as? gameViewController
                     newVC!.modalPresentationStyle = .fullScreen
                     self.present(newVC!, animated: true)
                 }

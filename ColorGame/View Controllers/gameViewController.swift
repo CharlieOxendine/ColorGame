@@ -174,17 +174,23 @@ class gameViewController: UIViewController {
                         ref.updateData(["highScore" : finalScore])
                         self.scoreNum = 0
                     } else if currentScore! < highscore! {
-                        self.mainTile.alpha = 0
-                        self.button1.alpha = 0
-                        self.button2.alpha = 0
-                        self.button3.alpha = 0
-                        self.button4.alpha = 0
-                        self.button5.alpha = 0
-                        self.button6.alpha = 0
-                        self.button7.alpha = 0
-                        self.button8.alpha = 0
-                        self.button9.alpha = 0
-                        self.StartGame.alpha = 1
+                        let nopeAlert = UIAlertController(title: "Not Quiet", message: finalScore, preferredStyle: .alert)
+                        let close = UIAlertAction(title: "close", style: .default) { (alert) in
+                            print("closed")
+                            self.mainTile.alpha = 0
+                            self.button1.alpha = 0
+                            self.button2.alpha = 0
+                            self.button3.alpha = 0
+                            self.button4.alpha = 0
+                            self.button5.alpha = 0
+                            self.button6.alpha = 0
+                            self.button7.alpha = 0
+                            self.button8.alpha = 0
+                            self.button9.alpha = 0
+                            self.StartGame.alpha = 1
+                        }
+                        nopeAlert.addAction(close)
+                        self.present(nopeAlert, animated: true)
                     }
                 }
             }

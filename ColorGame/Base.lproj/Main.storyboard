@@ -27,8 +27,8 @@
                                     <segue destination="BYZ-38-t0r" kind="show" identifier="play" id="h8N-9X-zxt"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Color Pick" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iFH-wo-6qv">
-                                <rect key="frame" x="109" y="198.5" width="157" height="50"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TILE TAP" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iFH-wo-6qv">
+                                <rect key="frame" x="123.5" y="198.5" width="128" height="50"/>
                                 <fontDescription key="fontDescription" name="DINCondensed-Bold" family="DIN Condensed" pointSize="50"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -422,7 +422,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="ebX-Yc-ADU"/>
-        <segue reference="iqf-R4-6Oa"/>
+        <segue reference="h8N-9X-zxt"/>
     </inferredMetricsTieBreakers>
 </document>

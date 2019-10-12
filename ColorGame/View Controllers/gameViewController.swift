@@ -12,16 +12,21 @@ import FirebaseFirestore
 
 class gameViewController: UIViewController {
     
+    // MARK: - Class Vars
+    
     @IBOutlet weak var highScoreLabel: UILabel!
     @IBOutlet weak var mainTile: UIButton!
     @IBOutlet weak var score: UILabel!
     @IBOutlet weak var StartGame: UIButton!
     @IBOutlet weak var timerUI: UILabel!
     
+    @IBOutlet weak var bonusTimeNotif2: UILabel!
+    @IBOutlet weak var bonusTimeNotif: UILabel!
+    
+    var plusCount = 0
     var timeCounter = 0
     var userID = ""
     var scoreNum = 0
-    var timer: Timer = Timer.init()
     var timerSecond: Timer = Timer.init()
     
     @IBOutlet weak var button1: UIButton!
@@ -39,6 +44,8 @@ class gameViewController: UIViewController {
     
     // MARK: - viewDidLoad()
     override func viewDidLoad() {
+        bonusTimeNotif.alpha = 0
+        bonusTimeNotif2.alpha = 0
         overrideUserInterfaceStyle = .light
         getName()
         super.viewDidLoad()
@@ -110,7 +117,6 @@ class gameViewController: UIViewController {
     func start() {
         timeManage()
         toggleColors()
-        toggleMainColor()
     }
     
     func updateTimer(){
@@ -119,105 +125,113 @@ class gameViewController: UIViewController {
             timeCounter -= 1
             self.timerUI.text = String(self.timeCounter)
         }
+        
+        if timeCounter == 0 {
+            endGame()
+        }
     }
 
     func timeManage() {
         timeCounter = 30
-
         timerSecond = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timerSecond in
-                self.updateTimer()
+            self.updateTimer()
+            if self.scoreNum >= 50 {
+                //NEXT LEVEL
+            }
         }
+    }
+    
+    func endGame() {
+        timerSecond.invalidate()
         
-        timer = Timer.scheduledTimer(withTimeInterval: 30, repeats: false) { timer in
-            self.mainTile.alpha = 0
-            self.button1.alpha = 0
-            self.button2.alpha = 0
-            self.button3.alpha = 0
-            self.button4.alpha = 0
-            self.button5.alpha = 0
-            self.button6.alpha = 0
-            self.button7.alpha = 0
-            self.button8.alpha = 0
-            self.button9.alpha = 0
-            self.StartGame.alpha = 0
-            var finalScore = self.score.text as! String
-            self.scoreNum = Int(finalScore)!
-            self.score.text = "0"
-            let db = Firestore.firestore()
-            let ref = db.collection("users").document(self.userID)
-            ref.getDocument { (snap, err) in
-                if let err = err {
-                    print("Error: \(err)")
-                } else {
-                    var highscoreString = snap?.data()!["highScore"] as! String
-                    var highscore = Int(highscoreString)
-                    var currentScore = Int(finalScore)
-                    
-                    if currentScore! > highscore! {
-                        let highAlert = UIAlertController(title: "New High Score", message: finalScore, preferredStyle: .alert)
-                        let close = UIAlertAction(title: "close", style: .default) { (alert) in
-                            print("closed")
-                            self.mainTile.alpha = 0
-                            self.button1.alpha = 0
-                            self.button2.alpha = 0
-                            self.button3.alpha = 0
-                            self.button4.alpha = 0
-                            self.button5.alpha = 0
-                            self.button6.alpha = 0
-                            self.button7.alpha = 0
-                            self.button8.alpha = 0
-                            self.button9.alpha = 0
-                            self.timerUI.alpha = 0
-                            self.StartGame.alpha = 1
-                            self.self.populateHighScore()
-                            self.highScoreLabel.setNeedsDisplay()
-                        }
-                        highAlert.addAction(close)
-                        self.present(highAlert, animated: true)
-                        ref.updateData(["highScore" : finalScore])
-                        ref.updateData(["highscoreINT" : Int(finalScore)])
-                        self.scoreNum = 0
-                    } else if  currentScore! == highscore! {
-                        let almostAlert = UIAlertController(title: "New High Score", message: finalScore, preferredStyle: .alert)
-                        let close = UIAlertAction(title: "close", style: .default) { (alert) in
-                            print("closed")
-                            self.mainTile.alpha = 0
-                            self.button1.alpha = 0
-                            self.button2.alpha = 0
-                            self.button3.alpha = 0
-                            self.button4.alpha = 0
-                            self.button5.alpha = 0
-                            self.button6.alpha = 0
-                            self.button7.alpha = 0
-                            self.button8.alpha = 0
-                            self.button9.alpha = 0
-                            self.timerUI.alpha = 0
-                            self.StartGame.alpha = 1
-                        }
-                        almostAlert.addAction(close)
-                        self.present(almostAlert, animated: true)
-                        ref.updateData(["highScore" : finalScore])
-                        self.scoreNum = 0
-                    } else if currentScore! < highscore! {
-                        let nopeAlert = UIAlertController(title: "Not Quite", message: finalScore, preferredStyle: .alert)
-                        let close = UIAlertAction(title: "close", style: .default) { (alert) in
-                            print("closed")
-                            self.mainTile.alpha = 0
-                            self.button1.alpha = 0
-                            self.button2.alpha = 0
-                            self.button3.alpha = 0
-                            self.button4.alpha = 0
-                            self.button5.alpha = 0
-                            self.button6.alpha = 0
-                            self.button7.alpha = 0
-                            self.button8.alpha = 0
-                            self.button9.alpha = 0
-                            self.timerUI.alpha = 0
-                            self.StartGame.alpha = 1
-                        }
-                        nopeAlert.addAction(close)
-                        self.present(nopeAlert, animated: true)
+        self.mainTile.alpha = 0
+        self.button1.alpha = 0
+        self.button2.alpha = 0
+        self.button3.alpha = 0
+        self.button4.alpha = 0
+        self.button5.alpha = 0
+        self.button6.alpha = 0
+        self.button7.alpha = 0
+        self.button8.alpha = 0
+        self.button9.alpha = 0
+        self.StartGame.alpha = 0
+        var finalScore = self.score.text as! String
+        self.scoreNum = Int(finalScore)!
+        self.score.text = "0"
+        let db = Firestore.firestore()
+        let ref = db.collection("users").document(self.userID)
+        ref.getDocument { (snap, err) in
+            if let err = err {
+                print("Error: \(err)")
+            } else {
+                var highscoreString = snap?.data()!["highScore"] as! String
+                var highscore = Int(highscoreString)
+                var currentScore = Int(finalScore)
+                
+                if currentScore! > highscore! {
+                    let highAlert = UIAlertController(title: "New High Score", message: finalScore, preferredStyle: .alert)
+                    let close = UIAlertAction(title: "close", style: .default) { (alert) in
+                        print("closed")
+                        self.mainTile.alpha = 0
+                        self.button1.alpha = 0
+                        self.button2.alpha = 0
+                        self.button3.alpha = 0
+                        self.button4.alpha = 0
+                        self.button5.alpha = 0
+                        self.button6.alpha = 0
+                        self.button7.alpha = 0
+                        self.button8.alpha = 0
+                        self.button9.alpha = 0
+                        self.timerUI.alpha = 0
+                        self.StartGame.alpha = 1
+                        self.self.populateHighScore()
+                        self.highScoreLabel.setNeedsDisplay()
                     }
+                    highAlert.addAction(close)
+                    self.present(highAlert, animated: true)
+                    ref.updateData(["highScore" : finalScore])
+                    ref.updateData(["highscoreINT" : Int(finalScore)])
+                    self.scoreNum = 0
+                } else if  currentScore! == highscore! {
+                    let almostAlert = UIAlertController(title: "New High Score", message: finalScore, preferredStyle: .alert)
+                    let close = UIAlertAction(title: "close", style: .default) { (alert) in
+                        print("closed")
+                        self.mainTile.alpha = 0
+                        self.button1.alpha = 0
+                        self.button2.alpha = 0
+                        self.button3.alpha = 0
+                        self.button4.alpha = 0
+                        self.button5.alpha = 0
+                        self.button6.alpha = 0
+                        self.button7.alpha = 0
+                        self.button8.alpha = 0
+                        self.button9.alpha = 0
+                        self.timerUI.alpha = 0
+                        self.StartGame.alpha = 1
+                    }
+                    almostAlert.addAction(close)
+                    self.present(almostAlert, animated: true)
+                    ref.updateData(["highScore" : finalScore])
+                    self.scoreNum = 0
+                } else if currentScore! < highscore! {
+                    let nopeAlert = UIAlertController(title: "Not Quite", message: finalScore, preferredStyle: .alert)
+                    let close = UIAlertAction(title: "close", style: .default) { (alert) in
+                        print("closed")
+                        self.mainTile.alpha = 0
+                        self.button1.alpha = 0
+                        self.button2.alpha = 0
+                        self.button3.alpha = 0
+                        self.button4.alpha = 0
+                        self.button5.alpha = 0
+                        self.button6.alpha = 0
+                        self.button7.alpha = 0
+                        self.button8.alpha = 0
+                        self.button9.alpha = 0
+                        self.timerUI.alpha = 0
+                        self.StartGame.alpha = 1
+                    }
+                    nopeAlert.addAction(close)
+                    self.present(nopeAlert, animated: true)
                 }
             }
         }
@@ -244,14 +258,12 @@ class gameViewController: UIViewController {
         var color = button1.backgroundColor
         var rightColor = mainTile.backgroundColor
         if color == rightColor {
-            toggleMainColor()
             toggleColors()
             scoreNum += 1
             score.text = String(scoreNum)
         } else {
             print("WRONG")
-            timer.fire()
-            timerSecond.invalidate()
+            endGame()
         }
     }
     
@@ -259,14 +271,12 @@ class gameViewController: UIViewController {
         var color = button2.backgroundColor
         var rightColor = mainTile.backgroundColor
         if color == rightColor {
-            toggleMainColor()
             toggleColors()
             scoreNum += 1
             score.text = String(scoreNum)
         } else {
             print("WRONG")
-            timer.fire()
-            timerSecond.invalidate()
+            endGame()
         }
     }
     
@@ -274,14 +284,12 @@ class gameViewController: UIViewController {
         var color = button3.backgroundColor
         var rightColor = mainTile.backgroundColor
         if color == rightColor {
-            toggleMainColor()
             toggleColors()
             scoreNum += 1
             score.text = String(scoreNum)
         } else {
             print("WRONG")
-            timer.fire()
-            timerSecond.invalidate()
+            endGame()
         }
     }
     
@@ -289,14 +297,12 @@ class gameViewController: UIViewController {
         var color = button4.backgroundColor
         var rightColor = mainTile.backgroundColor
         if color == rightColor {
-            toggleMainColor()
             toggleColors()
             scoreNum += 1
             score.text = String(scoreNum)
         } else {
             print("WRONG")
-            timer.fire()
-            timerSecond.invalidate()
+            endGame()
         }
     }
     
@@ -304,14 +310,12 @@ class gameViewController: UIViewController {
         var color = button5.backgroundColor
         var rightColor = mainTile.backgroundColor
         if color == rightColor {
-            toggleMainColor()
             toggleColors()
             scoreNum += 1
             score.text = String(scoreNum)
         } else {
             print("WRONG")
-            timer.fire()
-            timerSecond.invalidate()
+            endGame()
         }
     }
     
@@ -319,14 +323,12 @@ class gameViewController: UIViewController {
         var color = button6.backgroundColor
         var rightColor = mainTile.backgroundColor
         if color == rightColor {
-            toggleMainColor()
             toggleColors()
             scoreNum += 1
             score.text = String(scoreNum)
         } else {
             print("WRONG")
-            timer.fire()
-            timerSecond.invalidate()
+            endGame()
         }
     }
     
@@ -334,14 +336,12 @@ class gameViewController: UIViewController {
         var color = button7.backgroundColor
         var rightColor = mainTile.backgroundColor
         if color == rightColor {
-            toggleMainColor()
             toggleColors()
             scoreNum += 1
             score.text = String(scoreNum)
         } else {
             print("WRONG")
-            timer.fire()
-            timerSecond.invalidate()
+            endGame()
         }
     }
     
@@ -349,14 +349,12 @@ class gameViewController: UIViewController {
         var color = button8.backgroundColor
         var rightColor = mainTile.backgroundColor
         if color == rightColor {
-            toggleMainColor()
             toggleColors()
             scoreNum += 1
             score.text = String(scoreNum)
         } else {
             print("WRONG")
-            timer.fire()
-            timerSecond.invalidate()
+            endGame()
         }
     }
     
@@ -364,14 +362,12 @@ class gameViewController: UIViewController {
         var color = button9.backgroundColor
         var rightColor = mainTile.backgroundColor
         if color == rightColor {
-            toggleMainColor()
             toggleColors()
             scoreNum += 1
             score.text = String(scoreNum)
         } else {
             print("WRONG")
-            timer.fire()
-            timerSecond.invalidate()
+            endGame()
         }
     }
     
@@ -379,30 +375,52 @@ class gameViewController: UIViewController {
     
     // MARK: - Toggle Tile colors
     //Call self.viewDidLoad() after calling this function
+    
     func toggleColors() {
         var count = 0
         var tiles = [button1, button2, button3, button4, button5, button6, button7, button8, button9]
         var randomColor = colors.shuffled()
+        
         for button in tiles{
             let color = randomColor[count]
             button?.backgroundColor = color
             count += 1
         }
+        
+        let randomColorMain = colors.randomElement()
+        self.mainTile.backgroundColor = randomColorMain
         count = 0
+        
+        //Add to counter
+        plusCount += 1
+        
+        //When counter equals 5, add two second to timer
+        if plusCount == 10 {
+            timeCounter += 3
+            plusCount = 0
+            UIView.animate(withDuration: 1) {
+                self.bonusTimeNotif.alpha = 1
+                self.bonusTimeNotif2.alpha = 1
+                self.bonusTimeNotif.alpha = 0
+                self.bonusTimeNotif2.alpha = 0
+            }
+        }
     }
-    
-    func toggleMainColor() {
-        let randomColor = colors.randomElement()
-        self.mainTile.backgroundColor = randomColor
-    }
-    
+  
+    // MARK: - Segue Prepare
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "backMenu" {
+            timeCounter = 0
+            scoreNum = 0
+            timerSecond.invalidate()
             let menuVC = segue.destination as? MenuViewController
             menuVC!.userUID = userID
             menuVC!.modalPresentationStyle = .fullScreen
             self.present(menuVC!, animated: true)
         } else if segue.identifier == "highScoreSegue" {
+            timeCounter = 0
+            scoreNum = 0
+            timerSecond.invalidate()
             let highScoreVC = segue.destination as? HighscoresViewController
             highScoreVC!.modalPresentationStyle = .fullScreen
             highScoreVC!.userID = userID

@@ -16,9 +16,13 @@ class gameViewController: UIViewController {
     @IBOutlet weak var mainTile: UIButton!
     @IBOutlet weak var score: UILabel!
     @IBOutlet weak var StartGame: UIButton!
+    @IBOutlet weak var timerUI: UILabel!
     
+    var timeCounter = 0
     var userID = ""
     var scoreNum = 0
+    var timer: Timer = Timer.init()
+    var timerSecond: Timer = Timer.init()
     
     @IBOutlet weak var button1: UIButton!
     @IBOutlet weak var button2: UIButton!
@@ -104,8 +108,27 @@ class gameViewController: UIViewController {
 
     // MARK: - Start
     func start() {
-        var halt = false
-        let timer = Timer.scheduledTimer(withTimeInterval: 30, repeats: false) { timer in
+        timeManage()
+        toggleColors()
+        toggleMainColor()
+    }
+    
+    func updateTimer(){
+        //example functionality
+        if timeCounter > 0 {
+            timeCounter -= 1
+            self.timerUI.text = String(self.timeCounter)
+        }
+    }
+
+    func timeManage() {
+        timeCounter = 30
+
+        timerSecond = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timerSecond in
+                self.updateTimer()
+        }
+        
+        timer = Timer.scheduledTimer(withTimeInterval: 30, repeats: false) { timer in
             self.mainTile.alpha = 0
             self.button1.alpha = 0
             self.button2.alpha = 0
@@ -144,6 +167,7 @@ class gameViewController: UIViewController {
                             self.button7.alpha = 0
                             self.button8.alpha = 0
                             self.button9.alpha = 0
+                            self.timerUI.alpha = 0
                             self.StartGame.alpha = 1
                             self.self.populateHighScore()
                             self.highScoreLabel.setNeedsDisplay()
@@ -167,6 +191,7 @@ class gameViewController: UIViewController {
                             self.button7.alpha = 0
                             self.button8.alpha = 0
                             self.button9.alpha = 0
+                            self.timerUI.alpha = 0
                             self.StartGame.alpha = 1
                         }
                         almostAlert.addAction(close)
@@ -174,7 +199,7 @@ class gameViewController: UIViewController {
                         ref.updateData(["highScore" : finalScore])
                         self.scoreNum = 0
                     } else if currentScore! < highscore! {
-                        let nopeAlert = UIAlertController(title: "Not Quiet", message: finalScore, preferredStyle: .alert)
+                        let nopeAlert = UIAlertController(title: "Not Quite", message: finalScore, preferredStyle: .alert)
                         let close = UIAlertAction(title: "close", style: .default) { (alert) in
                             print("closed")
                             self.mainTile.alpha = 0
@@ -187,6 +212,7 @@ class gameViewController: UIViewController {
                             self.button7.alpha = 0
                             self.button8.alpha = 0
                             self.button9.alpha = 0
+                            self.timerUI.alpha = 0
                             self.StartGame.alpha = 1
                         }
                         nopeAlert.addAction(close)
@@ -195,8 +221,6 @@ class gameViewController: UIViewController {
                 }
             }
         }
-        toggleColors()
-        toggleMainColor()
     }
     
     // MARK: - Button Functions
@@ -211,6 +235,7 @@ class gameViewController: UIViewController {
         button7.alpha = 1
         button8.alpha = 1
         button9.alpha = 1
+        self.timerUI.alpha = 1
         self.StartGame.alpha = 0
         start()
     }
@@ -225,6 +250,8 @@ class gameViewController: UIViewController {
             score.text = String(scoreNum)
         } else {
             print("WRONG")
+            timer.fire()
+            timerSecond.invalidate()
         }
     }
     
@@ -238,6 +265,8 @@ class gameViewController: UIViewController {
             score.text = String(scoreNum)
         } else {
             print("WRONG")
+            timer.fire()
+            timerSecond.invalidate()
         }
     }
     
@@ -251,6 +280,8 @@ class gameViewController: UIViewController {
             score.text = String(scoreNum)
         } else {
             print("WRONG")
+            timer.fire()
+            timerSecond.invalidate()
         }
     }
     
@@ -264,6 +295,8 @@ class gameViewController: UIViewController {
             score.text = String(scoreNum)
         } else {
             print("WRONG")
+            timer.fire()
+            timerSecond.invalidate()
         }
     }
     
@@ -277,6 +310,8 @@ class gameViewController: UIViewController {
             score.text = String(scoreNum)
         } else {
             print("WRONG")
+            timer.fire()
+            timerSecond.invalidate()
         }
     }
     
@@ -290,6 +325,8 @@ class gameViewController: UIViewController {
             score.text = String(scoreNum)
         } else {
             print("WRONG")
+            timer.fire()
+            timerSecond.invalidate()
         }
     }
     
@@ -303,6 +340,8 @@ class gameViewController: UIViewController {
             score.text = String(scoreNum)
         } else {
             print("WRONG")
+            timer.fire()
+            timerSecond.invalidate()
         }
     }
     
@@ -316,6 +355,8 @@ class gameViewController: UIViewController {
             score.text = String(scoreNum)
         } else {
             print("WRONG")
+            timer.fire()
+            timerSecond.invalidate()
         }
     }
     
@@ -329,6 +370,8 @@ class gameViewController: UIViewController {
             score.text = String(scoreNum)
         } else {
             print("WRONG")
+            timer.fire()
+            timerSecond.invalidate()
         }
     }
     

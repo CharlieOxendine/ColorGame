@@ -7,23 +7,23 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2B5D985ADB08FA75B3803604 /* Pods_ColorGame.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8D124C034AB192E0EF61109E /* Pods_ColorGame.framework */; };
+		0ADF5ED6D9F66A57AB59273E /* Pods_ColorGame.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 639763D82A378A63C785F404 /* Pods_ColorGame.framework */; };
+		9F6447D02350FDA500A679AF /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9FC867D12349B49A0059D01E /* GoogleService-Info.plist */; };
 		9F87E83923452C660090F2AC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F87E83823452C660090F2AC /* AppDelegate.swift */; };
 		9F87E83B23452C660090F2AC /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F87E83A23452C660090F2AC /* SceneDelegate.swift */; };
 		9F87E83D23452C660090F2AC /* gameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F87E83C23452C660090F2AC /* gameViewController.swift */; };
 		9F87E84023452C660090F2AC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9F87E83E23452C660090F2AC /* Main.storyboard */; };
 		9F87E84223452C670090F2AC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9F87E84123452C670090F2AC /* Assets.xcassets */; };
 		9F87E84523452C670090F2AC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9F87E84323452C670090F2AC /* LaunchScreen.storyboard */; };
-		9FC867D22349B49A0059D01E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9FC867D12349B49A0059D01E /* GoogleService-Info.plist */; };
 		9FC867D4234A69FB0059D01E /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC867D3234A69FB0059D01E /* MenuViewController.swift */; };
 		9FC867D7234AA05E0059D01E /* HighscoresViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC867D6234AA05E0059D01E /* HighscoresViewController.swift */; };
 		9FC867D9234AAA7E0059D01E /* scoreCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC867D8234AAA7E0059D01E /* scoreCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		2EF3F0497488515AB778B47F /* Pods-ColorGame.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ColorGame.release.xcconfig"; path = "Target Support Files/Pods-ColorGame/Pods-ColorGame.release.xcconfig"; sourceTree = "<group>"; };
-		8D124C034AB192E0EF61109E /* Pods_ColorGame.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ColorGame.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		9D428656DC2FC7A9194D6F8A /* Pods-ColorGame.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ColorGame.debug.xcconfig"; path = "Target Support Files/Pods-ColorGame/Pods-ColorGame.debug.xcconfig"; sourceTree = "<group>"; };
+		172D46A04D89A5E670ACC81C /* Pods-ColorGame.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ColorGame.release.xcconfig"; path = "Target Support Files/Pods-ColorGame/Pods-ColorGame.release.xcconfig"; sourceTree = "<group>"; };
+		2691E13F30C73DE962F6A86B /* Pods-ColorGame.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ColorGame.debug.xcconfig"; path = "Target Support Files/Pods-ColorGame/Pods-ColorGame.debug.xcconfig"; sourceTree = "<group>"; };
+		639763D82A378A63C785F404 /* Pods_ColorGame.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ColorGame.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9F87E83523452C660090F2AC /* ColorGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ColorGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9F87E83823452C660090F2AC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9F87E83A23452C660090F2AC /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -43,39 +43,40 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2B5D985ADB08FA75B3803604 /* Pods_ColorGame.framework in Frameworks */,
+				0ADF5ED6D9F66A57AB59273E /* Pods_ColorGame.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		4F6E3129FBAA53C7A329F27D /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				8D124C034AB192E0EF61109E /* Pods_ColorGame.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		6211E64DF5409B0F92DBE0B8 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				9D428656DC2FC7A9194D6F8A /* Pods-ColorGame.debug.xcconfig */,
-				2EF3F0497488515AB778B47F /* Pods-ColorGame.release.xcconfig */,
+				2691E13F30C73DE962F6A86B /* Pods-ColorGame.debug.xcconfig */,
+				172D46A04D89A5E670ACC81C /* Pods-ColorGame.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		7D6756DDD1CE8FED0984FD67 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				639763D82A378A63C785F404 /* Pods_ColorGame.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		9F87E82C23452C660090F2AC = {
 			isa = PBXGroup;
 			children = (
 				9FC867D12349B49A0059D01E /* GoogleService-Info.plist */,
-				9F87E84C23456CCC0090F2AC /* Helpers */,
+				9F87E84623452C670090F2AC /* Info.plist */,
 				9F87E83723452C660090F2AC /* ColorGame */,
+				9F87E84C23456CCC0090F2AC /* Helpers */,
 				9F87E83623452C660090F2AC /* Products */,
 				6211E64DF5409B0F92DBE0B8 /* Pods */,
-				4F6E3129FBAA53C7A329F27D /* Frameworks */,
+				7D6756DDD1CE8FED0984FD67 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -96,7 +97,6 @@
 				9F87E83E23452C660090F2AC /* Main.storyboard */,
 				9F87E84123452C670090F2AC /* Assets.xcassets */,
 				9F87E84323452C670090F2AC /* LaunchScreen.storyboard */,
-				9F87E84623452C670090F2AC /* Info.plist */,
 			);
 			path = ColorGame;
 			sourceTree = "<group>";
@@ -126,11 +126,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 9F87E84923452C670090F2AC /* Build configuration list for PBXNativeTarget "ColorGame" */;
 			buildPhases = (
-				68D5362454C4CDF46F5F03D5 /* [CP] Check Pods Manifest.lock */,
+				2C9FCE53F24059A11E199427 /* [CP] Check Pods Manifest.lock */,
 				9F87E83123452C660090F2AC /* Sources */,
 				9F87E83223452C660090F2AC /* Frameworks */,
 				9F87E83323452C660090F2AC /* Resources */,
-				81648AE6C6D1232307C750DA /* [CP] Embed Pods Frameworks */,
+				53A98D5704E27533AB6A147E /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -179,9 +179,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9FC867D22349B49A0059D01E /* GoogleService-Info.plist in Resources */,
 				9F87E84523452C670090F2AC /* LaunchScreen.storyboard in Resources */,
 				9F87E84223452C670090F2AC /* Assets.xcassets in Resources */,
+				9F6447D02350FDA500A679AF /* GoogleService-Info.plist in Resources */,
 				9F87E84023452C660090F2AC /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -189,7 +189,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		68D5362454C4CDF46F5F03D5 /* [CP] Check Pods Manifest.lock */ = {
+		2C9FCE53F24059A11E199427 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -211,7 +211,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		81648AE6C6D1232307C750DA /* [CP] Embed Pods Frameworks */ = {
+		53A98D5704E27533AB6A147E /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -382,12 +382,14 @@
 		};
 		9F87E84A23452C670090F2AC /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9D428656DC2FC7A9194D6F8A /* Pods-ColorGame.debug.xcconfig */;
+			baseConfigurationReference = 2691E13F30C73DE962F6A86B /* Pods-ColorGame.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = Z9Z6RTNWBQ;
-				INFOPLIST_FILE = ColorGame/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -401,12 +403,14 @@
 		};
 		9F87E84B23452C670090F2AC /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2EF3F0497488515AB778B47F /* Pods-ColorGame.release.xcconfig */;
+			baseConfigurationReference = 172D46A04D89A5E670ACC81C /* Pods-ColorGame.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = Z9Z6RTNWBQ;
-				INFOPLIST_FILE = ColorGame/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

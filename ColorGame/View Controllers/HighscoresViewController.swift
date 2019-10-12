@@ -26,7 +26,7 @@ class HighscoresViewController: UIViewController {
     
     func getData() {
         let db = Firestore.firestore()
-        let ref = db.collection("users").order(by: "highscoreINT", descending: true).limit(to: 10)
+        let ref = db.collection("users").order(by: "highscoreINT", descending: true).limit(to: 15)
         ref.getDocuments { (snap, err) in
             if let err = err {
                 print("Error: \(err)")

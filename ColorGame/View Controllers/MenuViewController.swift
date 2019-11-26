@@ -10,7 +10,10 @@ import UIKit
 import FirebaseFirestore
 
 class MenuViewController: UIViewController {
-
+    
+    // filtered words from name
+    private var inputFilter = ["fuck","pussy","shit","crap"]
+    
     @IBOutlet weak var tile1: UIView!
     @IBOutlet weak var tile2: UIView!
     @IBOutlet weak var tile3: UIView!

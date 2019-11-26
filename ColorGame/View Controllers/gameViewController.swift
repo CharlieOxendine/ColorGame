@@ -59,7 +59,7 @@ class gameViewController: UIViewController {
             if let err = err {
                 print("Error: \(err)")
             } else {
-                var score = snap?.data()!["highScore"] as! String
+                let score = snap?.data()!["highScore"] as! String
                 self.highScoreLabel.text = score
             }
         }
@@ -87,7 +87,7 @@ class gameViewController: UIViewController {
         //ad stuff
         bannerView = GADBannerView(adSize: kGADAdSizeBanner)
         addBannerViewToView(bannerView)
-        bannerView.adUnitID = "ca-app-pub-3940256099942544/2934735716"
+        bannerView.adUnitID = "ca-app-pub-6584468447012164/3823460675"
         bannerView.rootViewController = self
         bannerView.load(GADRequest())
     }
@@ -131,16 +131,25 @@ class gameViewController: UIViewController {
         }
     }
 
+    // MARK: Time Manager
     func timeManage() {
         timeCounter = 30
         timerSecond = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timerSecond in
             self.updateTimer()
-            if self.scoreNum >= 50 {
-                //NEXT LEVEL
+            if self.scoreNum >= 50 { // MARK: Score Threshold
+                let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                let newVC = storyboard.instantiateViewController(identifier: "levelMarker") as! levelMarkerViewController
+                newVC.modalPresentationStyle = .fullScreen
+                newVC.nxtLevel = 2
+                newVC.score = self.score.text!
+                newVC.scoreNum = self.scoreNum
+                self.present(newVC, animated: true)
+                timerSecond.invalidate()
             }
         }
     }
     
+    // MARK: End Game
     func endGame() {
         timerSecond.invalidate()
         
@@ -155,7 +164,7 @@ class gameViewController: UIViewController {
         self.button8.alpha = 0
         self.button9.alpha = 0
         self.StartGame.alpha = 0
-        var finalScore = self.score.text as! String
+        let finalScore = self.score.text!
         self.scoreNum = Int(finalScore)!
         self.score.text = "0"
         let db = Firestore.firestore()
@@ -164,9 +173,9 @@ class gameViewController: UIViewController {
             if let err = err {
                 print("Error: \(err)")
             } else {
-                var highscoreString = snap?.data()!["highScore"] as! String
-                var highscore = Int(highscoreString)
-                var currentScore = Int(finalScore)
+                let highscoreString = snap?.data()!["highScore"] as! String
+                let highscore = Int(highscoreString)
+                let currentScore = Int(finalScore)
                 
                 if currentScore! > highscore! {
                     let highAlert = UIAlertController(title: "New High Score", message: finalScore, preferredStyle: .alert)
@@ -255,8 +264,8 @@ class gameViewController: UIViewController {
     }
     
     @IBAction func button1Touch(_ sender: Any) {
-        var color = button1.backgroundColor
-        var rightColor = mainTile.backgroundColor
+        let color = button1.backgroundColor
+        let rightColor = mainTile.backgroundColor
         if color == rightColor {
             toggleColors()
             scoreNum += 1
@@ -268,8 +277,8 @@ class gameViewController: UIViewController {
     }
     
     @IBAction func button2Touch(_ sender: Any) {
-        var color = button2.backgroundColor
-        var rightColor = mainTile.backgroundColor
+        let color = button2.backgroundColor
+        let rightColor = mainTile.backgroundColor
         if color == rightColor {
             toggleColors()
             scoreNum += 1
@@ -281,8 +290,8 @@ class gameViewController: UIViewController {
     }
     
     @IBAction func button3Touch(_ sender: Any) {
-        var color = button3.backgroundColor
-        var rightColor = mainTile.backgroundColor
+        let color = button3.backgroundColor
+        let rightColor = mainTile.backgroundColor
         if color == rightColor {
             toggleColors()
             scoreNum += 1
@@ -294,8 +303,8 @@ class gameViewController: UIViewController {
     }
     
     @IBAction func button4Touch(_ sender: Any) {
-        var color = button4.backgroundColor
-        var rightColor = mainTile.backgroundColor
+        let color = button4.backgroundColor
+        let rightColor = mainTile.backgroundColor
         if color == rightColor {
             toggleColors()
             scoreNum += 1
@@ -307,8 +316,8 @@ class gameViewController: UIViewController {
     }
     
     @IBAction func button5Touch(_ sender: Any) {
-        var color = button5.backgroundColor
-        var rightColor = mainTile.backgroundColor
+        let color = button5.backgroundColor
+        let rightColor = mainTile.backgroundColor
         if color == rightColor {
             toggleColors()
             scoreNum += 1
@@ -320,8 +329,8 @@ class gameViewController: UIViewController {
     }
     
     @IBAction func button6Touch(_ sender: Any) {
-        var color = button6.backgroundColor
-        var rightColor = mainTile.backgroundColor
+        let color = button6.backgroundColor
+        let rightColor = mainTile.backgroundColor
         if color == rightColor {
             toggleColors()
             scoreNum += 1
@@ -333,8 +342,8 @@ class gameViewController: UIViewController {
     }
     
     @IBAction func button7Touch(_ sender: Any) {
-        var color = button7.backgroundColor
-        var rightColor = mainTile.backgroundColor
+        let color = button7.backgroundColor
+        let rightColor = mainTile.backgroundColor
         if color == rightColor {
             toggleColors()
             scoreNum += 1
@@ -346,8 +355,8 @@ class gameViewController: UIViewController {
     }
     
     @IBAction func button8Touch(_ sender: Any) {
-        var color = button8.backgroundColor
-        var rightColor = mainTile.backgroundColor
+        let color = button8.backgroundColor
+        let rightColor = mainTile.backgroundColor
         if color == rightColor {
             toggleColors()
             scoreNum += 1
@@ -359,8 +368,8 @@ class gameViewController: UIViewController {
     }
     
     @IBAction func button9Touch(_ sender: Any) {
-        var color = button9.backgroundColor
-        var rightColor = mainTile.backgroundColor
+        let color = button9.backgroundColor
+        let rightColor = mainTile.backgroundColor
         if color == rightColor {
             toggleColors()
             scoreNum += 1
@@ -378,8 +387,8 @@ class gameViewController: UIViewController {
     
     func toggleColors() {
         var count = 0
-        var tiles = [button1, button2, button3, button4, button5, button6, button7, button8, button9]
-        var randomColor = colors.shuffled()
+        let tiles = [button1, button2, button3, button4, button5, button6, button7, button8, button9]
+        let randomColor = colors.shuffled()
         
         for button in tiles{
             let color = randomColor[count]

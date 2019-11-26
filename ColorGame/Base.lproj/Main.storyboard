@@ -24,8 +24,8 @@
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6f9-hq-esD">
                                 <rect key="frame" x="20" y="183.66666666666669" width="374" height="648.33333333333326"/>
                                 <color key="backgroundColor" red="0.98823529409999999" green="0.97647058819999999" blue="0.91764705879999997" alpha="1" colorSpace="calibratedRGB"/>
-                                <string key="text">Hello User,  Welcome to color steps! Once you touch start, there is a main tile and a 3x3 of squares with different colors. Touch the correct color tile that matches the main tile and you get a point! Every couple tiles, you'll get a "+3" meaning three seconds have been added to the timer. Keep going till you get to the top of the global leaderboards! 
-Thank you, The SilverBack Team</string>
+                                <mutableString key="text">Hello User,  Welcome to Color Steps! Once you touch start, there is a main tile and a 3x3 of squares with different colors. Touch the correct color tile that matches the main tile and you get a point! Every couple tiles, you'll get a "+3" meaning three seconds have been added to the timer. Keep going till you get to the top of the global leaderboards! 
+Thank you, The SilverBack Team</mutableString>
                                 <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <fontDescription key="fontDescription" name="DINCondensed-Bold" family="DIN Condensed" pointSize="19"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -70,8 +70,8 @@ Thank you, The SilverBack Team</string>
                                     <segue destination="BYZ-38-t0r" kind="show" identifier="play" id="h8N-9X-zxt"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TILE TAP" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iFH-wo-6qv">
-                                <rect key="frame" x="143" y="323" width="128" height="50"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="COLOR STEPS" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iFH-wo-6qv">
+                                <rect key="frame" x="102.66666666666669" y="323" width="209" height="50"/>
                                 <fontDescription key="fontDescription" name="DINCondensed-Bold" family="DIN Condensed" pointSize="50"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -1157,7 +1157,7 @@ Thank you, The SilverBack Team</string>
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="uxw-Gk-udb"/>
-        <segue reference="iqf-R4-6Oa"/>
+        <segue reference="h8N-9X-zxt"/>
         <segue reference="z8g-dR-iwu"/>
     </inferredMetricsTieBreakers>
 </document>
